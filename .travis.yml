@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - '9'
+
+jobs:
+  include:
+    - stage: "Deploy"
+      name: "Test Bash Script"
+      if: fork = false AND branch = master AND type = push
+      skip_cleanup: true
+      env:
+        - TF_VAR_stage=qa
+      script:
+        - ./scripts/deploy.sh
+
+cache:
+  - bundler
+  - npm
+  - pip
